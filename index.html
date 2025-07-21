@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Heart Failure Prediction</title>
+    <style>
+        body { font-family: Arial; background-color: #f2f2f2; padding: 20px; }
+        .container { background: #fff; padding: 20px; border-radius: 10px; max-width: 600px; margin: auto; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+        h2 { text-align: center; color: #333; }
+        input[type=number] { width: 100%; padding: 10px; margin: 5px 0; border-radius: 5px; border: 1px solid #ccc; }
+        button { background: #4CAF50; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #45a049; }
+        .result { text-align: center; margin-top: 20px; font-size: 1.2em; color: #222; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Heart Failure Prediction</h2>
+        <form method="post" action="/predict">
+            {% for field in ['Age', 'Anaemia', 'CPK', 'Diabetes', 'Ejection Fraction', 'High BP', 'Platelets', 'Serum Creatinine', 'Serum Sodium', 'Sex', 'Smoking', 'Time'] %}
+                <label>{{ field }}</label>
+                <input type="number" name="{{ field.lower().replace(' ', '_') }}" required>
+            {% endfor %}
+            <button type="submit">Predict</button>
+        </form>
+        {% if prediction_text %}
+            <div class="result">{{ prediction_text }}</div>
+        {% endif %}
+    </div>
+</body>
+</html>
